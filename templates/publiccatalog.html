@@ -1,0 +1,48 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+
+<!-- Categories -->
+<div class="col-md-2" ></div>
+<div class="row col-md-3" style="border: 2px solid rgb(172, 204, 179);margin-right:25px">
+	<h1>Categories</h1>
+	{% for category in categories %}
+	<a href="{{url_for('showCategory', category_name = category.name)}}">
+		<div class="row">
+			<div class="col-md-4 restaurant-list">
+				<h3>{{category.name}}</h3>
+			</div>
+		</div>
+	</a>
+	{% endfor %}
+</div>
+
+
+
+<div class="row col-md-7">
+		<div class = 'flash'>
+				{% with messages = get_flashed_messages() %}
+		{% if messages %}
+			
+		  <ul>
+		  {% for message in messages %}
+			  <li> <strong> {{ message }} </strong> </li>
+		  {% endfor %}
+		  </ul>
+		  {% endif %}
+		{% endwith %}
+
+	</div>	
+		<h1>Latest items</h1>
+		{% for item in items %}
+		<a href="{{url_for('showItem', category_name=item.category.name, item_title = item.title)}}">
+			<div class="row">
+				<!-- <div class="col-md-4 restaurant-list"> -->
+					<h3><span style="font-weight:bold">{{item.title}} </span> ({{item.category.name}})</h3>
+				<!-- </div> -->
+			</div>
+		</a>
+		{% endfor %}
+</div>
+
+{% endblock %}
